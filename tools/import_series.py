@@ -1,6 +1,6 @@
 """Preserve only the two requested Stickpage series. Python standard library only.
 
-Run from any directory: python tools/import_series.py
+Run from any directory: python stick-box/tools/import_series.py
 Existing files are verified and reused. The importer never executes source HTML.
 """
 import hashlib
