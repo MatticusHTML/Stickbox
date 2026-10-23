@@ -28,21 +28,18 @@ python -m http.server 8776 --bind 127.0.0.1
 ```
 
 Open <http://127.0.0.1:8776/>. Root `catalog.json` uses the local archive, so all
-saved originals work without R2. Only the movie selected by the visitor loads.
+saved originals work from the local archive. Only the movie selected by the visitor loads.
 The two external-video launchers still depend on their external videos.
 The local player bundle lives in `ruffle/`, including its licenses.
 
-## Start the new GitHub repository
+## Repository
 
-Create an empty GitHub repository, then add the **contents of this folder**.
-Include hidden files: `.github/`, `.gitignore`, `.gitattributes`, `.nojekyll`.
-This folder intentionally has no `.git` directory, remote or copied Aero history.
-You can use GitHub Desktop's **Add local repository / Create a repository here**
-or initialize Git here and add your new remote. No repository has been created
-or pushed on your behalf.
+The live site is <https://matticushtml.github.io/Stickbox/> and its source is
+<https://github.com/MatticusHTML/Stickbox>. Keep all subfolders when cloning,
+copying or uploading this project; the loose homepage files are not the archive.
 
-The source repository includes the full preservation archive. Every current SWF
-is smaller than GitHub's 100 MB per-file limit. Old Aero commits still contain
+The repository includes the full preservation archive. Every current SWF is
+smaller than GitHub's 100 MB per-file limit. Old Aero commits still contain
 historical copies; moving working files does not rewrite that history.
 
 ## Publish entirely through GitHub
@@ -77,10 +74,10 @@ A published build must wait until its archive commit has finished uploading.
 
 ## Connect back to Aero
 
-Stick Box's Back to Aero links already point to <https://matticushtml.github.io/Aero/>.
-When this site's final URL exists, set `STICKBOX_URL` in Aero's `index.html` to it.
-Aero's stickman stays in the background, hides on wipeout!, and shows a coming-soon
-invitation until that URL is configured. It has no dependency on this folder.
+Stick Box's Back to Aero links point to <https://matticushtml.github.io/Aero/>.
+Aero's `STICKBOX_URL` points back to this independent site. Aero keeps its waving
+greeting and corner character; the corner character hides when wipeout! is
+selected. The two websites have separate current files and repositories.
 
 ## Verify or maintain the archive
 

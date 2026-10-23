@@ -21,6 +21,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.x'
+      - name: Verify every preserved original before publishing
+        run: python -B tools/verify_archive.py
       - name: Build lightweight site with immutable GitHub media URLs
         run: python -B tools/build_site.py --media-base-url "https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/${GITHUB_SHA}"
       - uses: actions/configure-pages@v5

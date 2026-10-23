@@ -57,7 +57,7 @@ not been downloaded or converted.
 ## Playback
 
 Open Stick Box through an HTTP(S) server and choose an episode. `watch.html`
-loads one file through the repository's pinned Ruffle 0.6.0 bundle. The new
+loads one file through the standalone repository's pinned Ruffle 0.6.0 bundle. The new
 controls suspend/resume the whole Flash runtime, set its master volume, restart
 the original, and offer fullscreen. Some SWFs retain their own Start buttons,
 credits, loading screens, and episode links. External networking, script access,
@@ -74,8 +74,8 @@ fully verified. No MP4 conversions or content edits were made.
 
 ## Reproduce the import
 
-Run `python -B stick-box/tools/expand_fights.py` from the repository root, then
-`python -B stick-box/tools/audit_dependencies.py --write`. Use `--inventory` to
+Run `python -B tools/expand_fights.py` from the repository root, then
+`python -B tools/audit_dependencies.py --write`. Use `--inventory` to
 inspect listings without media downloads, or `--retry-missing` to retry only
 unresolved entries. These tools use Python's standard library and the importer
 requires network access. It is limited to the Fights index's collections and
@@ -87,10 +87,10 @@ The original `import_series.py` remains available for refreshing Killing Spree
 and Shock while retaining unrelated collections. Parsing supports FWS, CWS, and
 ZWS (LZMA) originals, including authored stage background metadata.
 
-Run `python stick-box/tools/verify_archive.py` to check all file hashes, byte
+Run `python tools/verify_archive.py` to check all file hashes, byte
 counts, thumbnails, and source snapshots without making network requests.
 It also verifies recorded stage background colors against the original files.
-Run `python -B stick-box/tools/test_swf_metadata.py` for the background parser's
+Run `python -B tools/test_swf_metadata.py` for the background parser's
 regression tests, including white, black, gray, missing, and truncated color tags.
 
 These works remain attributed to their original creators. Stick Box is an
