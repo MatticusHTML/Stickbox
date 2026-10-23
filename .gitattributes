@@ -1,0 +1,6 @@
+* text=auto
+*.swf -text
+*.wasm -text
+*.jpg -text
+*.png -text
+*.html.txt -text
