@@ -45,40 +45,35 @@ The source repository includes the full preservation archive. Every current SWF
 is smaller than GitHub's 100 MB per-file limit. Old Aero commits still contain
 historical copies; moving working files does not rewrite that history.
 
-## Publish the small website with R2 media
+## Publish entirely through GitHub
 
-The complete local archive is about 1.71 GB, exceeding
-[GitHub Pages' 1 GB published-site limit](https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits).
-The included workflow publishes **only `dist/`**, about 35 MB with the bundled
-player and thumbnails. It does not publish SWFs or archival HTML snapshots there.
+All 269 original SWFs, thumbnails and the Ruffle runtime belong in this
+repository, including their subfolders. Uploading only the loose root files
+omits the movies and player. Do not use Git LFS for these originals: the current
+files fit GitHub's per-file limit and the player needs the actual bytes.
 
-1. Upload the saved `.swf` files to a public R2 bucket, preserving keys such as
-   `archive/shock/shock1.swf` and `archive/animator-vs-animation/animatorvsanimation.swf`.
-   Keep the complete local archive and its hashes. The bucket base URL must resolve
-   each catalog path appended to it. A custom media domain is suitable for production.
-2. Set the bucket's [CORS policy](https://developers.cloudflare.com/r2/buckets/cors/)
-   to allow `GET` and `HEAD` from your GitHub Pages **origin** (for example
-   `https://matticushtml.github.io`, with no repository path), allow `Range`, and
-   expose `Content-Length`, `Content-Range`, `Accept-Ranges`, and `ETag`.
-3. In the new repository, create an Actions **repository variable** named
-   `STICKBOX_MEDIA_BASE_URL` containing that public HTTPS media base URL. This is
-   a public address, not an S3 API endpoint or credential. Keep credentials out of Git.
-4. Under **Settings → Pages**, choose **GitHub Actions**. The included workflow
-   runs on pushes to `main`, or manually from Actions. If you choose another
-   default branch, update `.github/workflows/pages.yml` to match.
+The repository contains about 1.71 GB of movies. GitHub Pages has a separate
+[1 GB published-site limit](https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits).
+The included Actions workflow publishes only the approximately 35 MB `dist/`
+website and loads movies from `raw.githubusercontent.com` in this same repository.
+No Cloudflare account, R2 bucket, access key or repository media variable is needed.
 
-Build locally with the actual media address before publishing:
+Under **Settings → Pages**, use **GitHub Actions**. The workflow runs on pushes
+to `main` or manually from Actions. It pins each generated movie URL to that
+build's commit SHA, while the source catalog keeps local paths for preservation
+and offline HTTP previews. Thumbnails and Ruffle stay in the Pages artifact;
+SWFs and original source snapshots do not. Never publish the full root as Pages.
+
+To reproduce a build locally against the current GitHub branch:
 
 ```sh
-python -B tools/build_site.py --media-base-url https://YOUR-PUBLIC-MEDIA-DOMAIN
+python -B tools/build_site.py --media-base-url https://raw.githubusercontent.com/MatticusHTML/Stickbox/main
 python -m http.server 8777 --bind 127.0.0.1 --directory dist
 ```
 
-The builder changes **only the generated catalog's movie URLs**. It never changes
-the source catalog or originals. The generated `dist/` is ignored by Git and can
-be rebuilt. A missing media address stops the build instead of publishing broken
-local movie links. Upload the originals and verify a real R2 movie before deploying;
-no R2 uploads or public deployment have been performed during preparation.
+The builder changes only the generated catalog's movie URLs. Source originals
+and their hashes remain untouched. The generated `dist/` is ignored by Git.
+A published build must wait until its archive commit has finished uploading.
 
 ## Connect back to Aero
 

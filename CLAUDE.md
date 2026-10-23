@@ -34,10 +34,12 @@ Run tools from this root: `python -B tools/verify_archive.py`,
 own location. `expand_fights.py` preserves unrelated catalog groups. Run
 `audit_dependencies.py --write` after future archive expansions.
 
-The full archive exceeds GitHub Pages' published-size limit. `tools/build_site.py`
-requires an actual public HTTPS R2 base address and builds only the lightweight
-`dist/` site, rewriting generated media URLs. Source catalog paths remain local
-for preservation checks. Publish only dist using `.github/workflows/pages.yml`;
-never upload the complete archive as the Pages artifact. No credentials in Git.
-Refer to README for R2 object-key layout and CORS setup. Do not guess the final
-Stick Box domain, move media to Aero, rewrite history, or publish without scope.
+The full archive exceeds GitHub Pages' published-size limit. Keep all originals
+in this repository, but publish only `dist/` using `.github/workflows/pages.yml`.
+The workflow calls `tools/build_site.py` with this repository's immutable raw
+GitHub commit URL. The generated catalog loads movie bytes from raw GitHub;
+source catalog paths stay local. No R2 configuration or credentials are needed.
+Keep the pinned local Ruffle runtime and thumbnails in the Pages artifact.
+Never deploy the complete repository root or turn SWFs into Git LFS pointers.
+Do not rewrite archive history, move media back into Aero, or expand content
+without the user's request.
